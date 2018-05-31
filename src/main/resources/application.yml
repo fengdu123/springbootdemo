@@ -1,0 +1,48 @@
+#数据库配置文件
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/information_schema
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+    type: org.apache.ibatis.datasource.pooled.PooledDataSource
+  profiles:
+    active: dev
+  redis:
+    database: 4
+    host: localhost
+    password:
+    port: 6379
+    timeout: 36000
+    jedis:
+      pool:
+        max-idle: 8
+        min-idle: 0
+        max-active: 8
+        max-wait: -1
+  messages:
+    cache-seconds: -1
+    encoding: UTF-8
+
+banner:
+  charset: UTF-8
+
+server:
+  port: 8081
+  address: localhost
+  tomcat:
+    basedir: ${user.home}/tomcatFiles
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+logging:
+  path: ${user.home}/tomcatFiles/logs
+  file: tomcat.log
+  pattern:
+    file: error
+
+
+
