@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class RateLimiterDemo {
 
     /**
-     * RateLimiter和JDK中的Semphore, 用来限制对资源的访问数
+     * RateLimiter和JDK中的Semaphore, 用来限制对资源的访问数
      * @param args
      */
     public static void main(String[] args) {
@@ -50,7 +50,8 @@ public class RateLimiterDemo {
         /** 判断在相应的时间内，是否可以从RateLimiter内获得许可；在规定的时间内没有获得相应的许可，返回false*/
         boolean lean = limiter.tryAcquire(2, TimeUnit.MICROSECONDS);
 
-
+        /** 最后一定要关闭线程*/
+        service.shutdown();
 
     }
 }
