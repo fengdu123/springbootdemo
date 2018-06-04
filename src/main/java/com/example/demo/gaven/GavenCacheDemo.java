@@ -3,6 +3,8 @@ package com.example.demo.gaven;
 
 import com.example.demo.model.Student;
 import com.google.common.cache.*;
+import com.google.common.graph.Graph;
+import com.google.common.graph.ImmutableGraph;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -47,6 +49,20 @@ public class GavenCacheDemo {
      * 5.cleanUp()清空缓存
      * 6.refresh(Key) 刷新缓存，即重新取缓存数据，更新缓存
      *
+     * 缓存回收机制：
+     * 1.基于容器的回收，规定缓存项的数目不超过规定的数目。CacheBuilder.maximumSize(long) ,可以指定一个权重函数，在CacheBuilder.weigth(Weight)
+     *   指定一个权重函数，并且用CacheBuilder.maximumWeigth(long)指定最大值。
+     * 2.设置时间定时回收缓存：
+     *   Cache.expireAfterAccess(long, TimeUnit)：缓存项在给定时间内没有被读/写访问，则回收。请注意这种缓存的回收顺序和基于大小回收一样。
+     *   Cache.expireAfterWrite(long, TimeUnit)：缓存项在给定时间内没有被写访问（创建或覆盖），则回收。如果认为缓存数据总是在固定
+     *   时候后变得陈旧不可用，这种回收方式是可取的。
+     * 一般常用的方法如上：
+     *
+     * 刷新缓存的方法：
+     * 1.LoadingCache.refresh(K)，刷新表示为键加入新值，整个过程可以是异步的。在刷新操作进行是，缓存仍然可以向其他线程返回旧值，
+     *   而不像回收操作，读缓存的线程必须等待新值加载完成。
+     * 2.CacheBuilder.refreshAfterWrite(long, TimeUnit),可以为缓存设置刷新时间，缓存项只有在检索到LoadingCache.refresh(K)方法，是
+     *   才会重新加载；否则就算到了时间，也不会刷新缓存。
      * @param args
      * @throws InterruptedException
      * @throws ExecutionException
@@ -103,9 +119,23 @@ public class GavenCacheDemo {
         //最后打印缓存的命中率等 情况
         System.out.println(studentCache.stats().toString());
 
+        /**
+         * 所有的Guava Cache都支持get(K, Callable<V>)方法，这个方法返回缓存中相应的方法。或者直接返回Callable运行后的
+         * 结果。
+         * 显式插入：Cache.put(key, value) 方法可以直接向缓存中插入值，但是这会覆盖之前已经存在的值。
+         */
 
         /** Callable实现缓存*/
-        Cache<String, String > cache = CacheBuilder.newBuilder().maximumSize(1000).build();
+        Cache<String, String > cache = CacheBuilder.newBuilder().maximumSize(1000)
+                .weigher(new Weigher<String, String>() {
+                    /**
+                     * 设置缓存的权重，以及最大权重值。
+                     */
+                    @Override
+                    public int weigh(String s1, String s2) {
+                        return s1.length() - s2.length();
+                    }
+                }).maximumWeight(1000).build();
         String resultVal = cache.get("jerry", new Callable<String>() {
             @Override
             public String call() {
@@ -123,5 +153,6 @@ public class GavenCacheDemo {
             }
         });
         System.out.println("peida value : " + resultVal);
+
     }
 }

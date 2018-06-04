@@ -24,6 +24,8 @@ spring:
     cache-seconds: -1
     encoding: UTF-8
 
+
+
 banner:
   charset: UTF-8
 
