@@ -22,7 +22,8 @@ public class RateLimiterDemo {
 
         ExecutorService service = Executors.newFixedThreadPool(4);
         /**
-         * 每秒不超过4个任务被提交
+         * 每秒不超过4个任务被提交(指定每秒放4.0个令牌，也就是1秒放4个令牌)
+         * RateLimiter通过限制后面请求的等待时间，来支持一定程度的突发请求（预消费）
          */
         RateLimiter limiter = RateLimiter.create(4.0);
         /** 请求RateLimiter ,超过规定的资源数，会阻塞线程*/
