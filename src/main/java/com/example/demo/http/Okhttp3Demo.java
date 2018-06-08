@@ -34,6 +34,9 @@ public class Okhttp3Demo {
      *
      * Responses(响应)
      * 响应则包含一个回复代码（200代表成功，404代表未找到），header和定制可选的body
+     *
+     * 相关网络方面的知识学习：
+     * https://blog.csdn.net/u014401141/article/details/53454598
      * @param args
      * @throws IOException
      */
@@ -76,7 +79,7 @@ public class Okhttp3Demo {
      * POST请求
      */
     public static String post(String url, String json) throws IOException {
-        RequestBody body = RequestBody.create(JSON, "");
+        RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder().url(url).post(body).build();
         Response response = client.newCall(request).execute();
         return response.body().toString();
@@ -175,7 +178,6 @@ public class Okhttp3Demo {
         if (map != null && !map.isEmpty()) {
             for (Map.Entry<String, String> entry : map.entrySet()) {
                 if (sb == null) {
-//                    sb = new StringBuffer ();
                     sb.append("?");
                 } else {
                     //拼接好的网站去掉最后一个“&”符号
