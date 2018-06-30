@@ -8,7 +8,6 @@ package com.example.demo.redis;
 import com.example.demo.RedisConfig;
 import com.example.demo.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.BoundListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
