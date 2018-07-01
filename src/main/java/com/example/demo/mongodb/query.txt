@@ -1,0 +1,21 @@
+
+
+Query里面封装了一些的方法：
+1.分页参数：设置分页
+2.排序参数：设置排序字段
+3.条件参数：设置查询条件
+4.字段参数：可返回指定字段
+
+1.分页查询
+query(pageIndex, pageSize)  pageIndex:当前页的索引，  pageSize:每页几条数据
+        Query query = new Query().page(2,10);
+        List<String> lists = dao.find(query);
+    如果实现不规则分页：
+        Query query = new Query().limit(3,7);
+    如果要查询所有的：
+        Query query = new Query();  //后面不要跟条件
+
+2.排序查询：
+        排序设置：orderby(String sortname, Sort sort)
+
+博客地址：https://blog.csdn.net/thc1987/article/details/79347054
