@@ -2,13 +2,7 @@
  * fshows.com
  * Copyright (C) 2013-2018 All Rights Reserved.
  */
-package com.example.demo.mongodb;
-
-import com.example.demo.model.Student;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
-
-import java.util.List;
+package com.example.demo.config.mongodb;
 
 /**
  *

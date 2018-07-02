@@ -19,3 +19,5 @@ query(pageIndex, pageSize)  pageIndex:当前页的索引，  pageSize:每页几�
         排序设置：orderby(String sortname, Sort sort)
 
 博客地址：https://blog.csdn.net/thc1987/article/details/79347054
+         https://www.cnblogs.com/stone_w/archive/2012/12/12/2814056.html
+

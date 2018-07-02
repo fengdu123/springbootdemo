@@ -2,7 +2,7 @@
  * fshows.com
  * Copyright (C) 2013-2018 All Rights Reserved.
  */
-package com.example.demo.redis;
+package com.example.demo.config.redis;
 
 
 import com.example.demo.RedisConfig;
